@@ -3,10 +3,11 @@ import numpy as np
 import pandas as pd
 from matplotlib.colors import ListedColormap
 import joblib # for saving method
+plt.style.use("fivethirtyeight")# this is style of graphs
 import os
 
 
-plt.style.use("fivethirtyeight")# this is style of graphs
+
 
 def prepare_data(df):
   X = df.drop("y", axis=1)
@@ -15,8 +16,8 @@ def prepare_data(df):
 
   return X, y
 
-
-
+  
+    
 
 
 
