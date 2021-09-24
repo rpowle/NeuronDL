@@ -5,6 +5,7 @@ from matplotlib.colors import ListedColormap
 import joblib # for saving method
 plt.style.use("fivethirtyeight")# this is style of graphs
 import os
+import logging
 
 
 
@@ -18,6 +19,7 @@ def prepare_data(df):
   Returns:
       tuples: it returns tuples of dependent and independent varibles
   """
+  logging.info("preparing the data by segregating all the infomation")
   X = df.drop("y", axis=1)
 
   y = df["y"]
@@ -31,6 +33,7 @@ def prepare_data(df):
 
 def save_plot(df, file_name, model):
   def _create_base_plot(df):
+    logging.info("creating plot for model")
     df.plot(kind="scatter", x="x1", y="x2", c="y", s=100, cmap="winter")
     plt.axhline(y=0, color="black", linestyle="--", linewidth=1)
     plt.axvline(x=0, color="black", linestyle="--", linewidth=1)
@@ -41,6 +44,7 @@ def save_plot(df, file_name, model):
 
 
   def _plot_decision_regions(X, y, classfier, resolution=0.02):
+    logging.info("plotting the decesion boundry")
     colors = ("red", "blue", "lightgreen", "gray", "cyan")
     cmap = ListedColormap(colors[: len(np.unique(y))])
 
@@ -52,14 +56,12 @@ def save_plot(df, file_name, model):
 
     xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution), 
                            np.arange(x2_min, x2_max, resolution))
-    print(xx1)
-    print(xx1.ravel())
+    
     Z = classfier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
     Z = Z.reshape(xx1.shape)
     plt.contourf(xx1, xx2, Z, alpha=0.2, cmap=cmap)
     plt.xlim(xx1.min(), xx1.max())
     plt.ylim(xx2.min(), xx2.max())
-
     plt.plot()
 
 
@@ -68,11 +70,11 @@ def save_plot(df, file_name, model):
 
   _create_base_plot(df)
   _plot_decision_regions(X, y, model)
-
   plot_dir = "plots"
   os.makedirs(plot_dir, exist_ok=True) # ONLY CREATE IF MODEL_DIR DOESN"T EXISTS
   plotPath = os.path.join(plot_dir, file_name) # model/filename
   plt.savefig(plotPath)
+  logging.info(f"saving the plot at {plotPath}")
 
 
 
