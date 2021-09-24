@@ -3,9 +3,9 @@ NeuronDL/Perceptron
 
 
 ##Add url -
-https://github.com/c17hawke/oneNeuron/blob/main/or.py
+[git URL] (https://github.com/c17hawke/oneNeuron/blob/main/or.py)
 
 ##Add images -
-NeuronDL\plots\and.png
+[Sample image] (NeuronDL/plots/and.png)
 
 
