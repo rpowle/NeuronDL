@@ -1,17 +1,18 @@
 from utils.model import Perceptron
 from utils.all_utils import prepare_data,save_plot
-#from utils.plot import save_plot
 from utils.savee import save_model
 import pandas as pd
-import numpy as np
 import logging
 import os
 
 
-logging_str= "[%(asctime)s: %(levelname)s: %(module)s] %(Message)s"
+logging_str= "[%(asctime)s: %(levelname)s: %(module)s] %(message)s" ## <<< message starts with lowercase m
 log_dir="logs"
 os.makedirs(log_dir,exist_ok=True)
-logging.basicConfig(filename = os.path.join (log_dir,"running_logs.log") , level=logging.INFO, format=logging_str,filemode="a")
+logging.basicConfig(
+    filename = os.path.join(log_dir,"running_logs.log"), 
+    level=logging.INFO, format=logging_str,
+    filemode="a")
 
 
 
@@ -19,11 +20,11 @@ def main(data, modelName, plotName, eta, epochs):
     df = pd.DataFrame(data)
     logging.info(f"this is actual dataframe{df}")
     X,y = prepare_data(df)
-    model = Perceptron(eta=ETA, epochs=EPOCHS)
+    model = Perceptron(eta=eta, epochs=epochs)
     model.fit(X, y)
     _ = model.total_loss()
-    save_model(model,filename="modelName")
-    save_plot (df, "plotName", model)
+    save_model(model,filename=modelName) ### pass the args as defined in the model definition
+    save_plot (df, plotName, model) ### pass the args as defined in the model definition
 
 
 if __name__== '__main__':
